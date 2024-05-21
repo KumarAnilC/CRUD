@@ -1,0 +1,241 @@
+<!--<html xmlns:th="https://www.thymeleaf.org/">
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Registration Page</title>
+	<style>
+		.register{
+			text-align: center;
+		}
+		.center{
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div class="register">
+			<div>
+				<h3>Student Registration</h3>
+			</div>
+			<div>
+				<form method="post" th:action="@{/student/save}">
+					<table class="center">
+						<tr>
+							<td>Name:</td>
+							<td><input type="text" name="name" required /></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><input type="email" name="email" required /></td>
+						</tr>
+						<tr>
+							<td>DOB:</td>
+							<td><input type="date" name="dob"  required /></td>
+						</tr>
+						<tr>
+							<td>Phone:</td>
+							<td><input type="number" name="phone" required /></td>
+						</tr>
+						<tr>
+							<td>Gender:</td>
+							<td><input type="radio" name="gender" value="Male" required/> Male
+								<input type="radio" name="gender" value="Female" required/> Female
+							</td>
+						</tr>
+						<tr>
+							<td><button type="submit">CREATE</button></td>
+							<td><a th:href="@{/student/all}">ALL</a></td>
+						</tr>
+					</table>	
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+		a{
+			text-decoration: none;
+			color: white;
+		}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h3 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-container input[type="text"],
+        .input-container input[type="email"],
+        .input-container input[type="date"],
+        .input-container input[type="number"] {
+            width: 100%;
+            padding: 8px 8px 8px 30px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #cccccc;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .gender-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="register">
+        <h3>Student Registration</h3>
+        <div class="success-message text-info" th:if="${message}" th:text="${message}"></div>
+        <form id="registration-form" method="post" th:action="@{/student/save}">
+            <div class="input-container">
+                <i class="fas fa-user"></i>
+                <input type="text" name="name" placeholder="Name" required />
+                <div class="error" id="name-error"></div>
+            </div>
+            <div class="input-container">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required />
+                <div class="error" id="email-error"></div>
+            </div>
+            <div class="input-container">
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" name="dob" required />
+                <div class="error" id="dob-error"></div>
+            </div>
+            <div class="input-container">
+                <i class="fas fa-phone"></i>
+                <input type="number" name="phone" placeholder="Phone" required />
+                <div class="error" id="phone-error"></div>
+            </div>
+            <div class="gender-container">
+                <label>Gender:</label>
+                <input type="radio" name="gender" value="Male" required /> Male
+                <input type="radio" name="gender" value="Female" required /> Female
+                <div class="error" id="gender-error"></div>
+            </div>
+            <button type="submit">CREATE</button>
+            <button><a th:href="@{/student/all}">ALL</a></button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#registration-form").validate({
+                rules: {
+                    name: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    dob: "required",
+                    phone: {
+                        required: true,
+                        digits: true
+                    },
+                    gender: "required"
+                },
+                messages: {
+                    name: "Please enter your name",
+                    email: {
+                        required: "Please enter your email address",
+                        email: "Please enter a valid email address"
+                    },
+                    dob: "Please enter your date of birth",
+                    phone: {
+                        required: "Please enter your phone number",
+                        digits: "Please enter only digits"
+                    },
+                    gender: "Please select your gender"
+                },
+                errorPlacement: function (error, element) {
+                    error.appendTo("#" + element.attr("name") + "-error");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
