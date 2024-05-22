@@ -29,8 +29,12 @@
 			border: 1px solid white;
 			border-collapse: collapse;
 		}
-
-		th,
+		th{
+			background-color:blue;
+			padding: 10px;
+			color: white;
+		}
+		
 		td {
 			background-color: #96D4D4;
 			padding: 10px;
@@ -72,12 +76,12 @@
 						<td>[[${ob.gender}]]</td>
 						<td>
 							<button class="btn btn-danger btn-sm"><a th:href="@{/student/delete(id=${ob.id})}" class="text-dark">DELETE</a></button> |
-							<button class="btn btn-info btn-sm"><a th:href="@{/student/edit(id=${ob.id})}" class="text-dark">EDIT</a></button>
+							<button class="btn btn-warning btn-sm"><a th:href="@{/student/edit(id=${ob.id})}" class="text-dark">EDIT</a></button>
 						</td>
 					</tr>
 					<tr>
 						<td style="background-color: white">						
-						<button class="btn btn-primary btn-sm"><a th:href="@{/student/register}" class="text-dark">REGISTER</a></button>
+						<button class="btn btn-success btn-sm"><a th:href="@{/student/register}" class="text-light">REGISTER</a></button>
 						</td>
 					</tr>
 				</table>

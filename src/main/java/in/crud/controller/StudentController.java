@@ -36,7 +36,7 @@ public class StudentController {
 		Integer id = service.saveStudent(student);
 		String message = "Student '" + student.getName() + "' with ID '" + id + "' created successfully";
 		model.addAttribute("message", message);
-		return "Registration";
+		return "redirect:register";
 	}
 	
 	@GetMapping("/all")
